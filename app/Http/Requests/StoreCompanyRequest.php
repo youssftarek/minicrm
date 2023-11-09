@@ -11,7 +11,7 @@ class StoreCompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,6 +22,14 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|',
+            // 'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'website' => 'required|string|max:255',
+            'revenue' => 'required|integer',
+
+
+
             //
         ];
     }
