@@ -21,5 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::resource('/companies', CompanyController::class);
 Route::get('/companies', [CompanyController::class, 'read']);
+Route::get('/companies/{id}', [CompanyController::class, 'show']);
 Route::post('/companies', [CompanyController::class, 'create']);
+Route::put('/companies/{id}', [CompanyController::class, 'update']);
+Route::delete('/companies/{id}', [CompanyController::class, 'delete']);
+
+
 
