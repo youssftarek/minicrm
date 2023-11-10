@@ -22,11 +22,14 @@ class CompanyController extends Controller
         $company = Company::create([
             'name' => $request->name,
             'email' => $request->email,
-            // 'logo' => $request->logo,
+            'logo' => $request->logo,
             'website' => $request->website,
             'revenue' => $request->revenue,
         ]);
-
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('public/logos');
+            $company->logo = basename($logoPath);
+        }
 
         return new CompanyResource($company);
 
@@ -39,10 +42,14 @@ class CompanyController extends Controller
         $company->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            // 'logo' => $request->input('logo'),
+            'logo' => $request->input('logo'),
             'website' => $request->input('website'),
             'revenue' => $request->input('revenue'),
         ]);
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('public/logos');
+            $company->logo = basename($logoPath);
+        }
         return new CompanyResource($company);
 
     }
@@ -58,8 +65,5 @@ class CompanyController extends Controller
         $company->delete();
         return response()->json(['message' => 'Company deleted successfully'], 200);
     }
-
-
-
 
 }
