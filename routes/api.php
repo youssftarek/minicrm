@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::resource('/companies', CompanyController::class);
-Route::get('/companies', [CompanyController::class, 'read']);
+Route::middleware(['auth:api'])->group(function () {
+    // Add other routes that should use the 'api' middleware
+
+    Route::get('/companies', [CompanyController::class, 'read']);
 Route::get('/companies/{id}', [CompanyController::class, 'show']);
 Route::post('/companies', [CompanyController::class, 'create']);
 Route::put('/companies/{id}', [CompanyController::class, 'update']);
@@ -33,5 +36,13 @@ Route::get('/employees/{id}', [EmployeeController::class, 'show']);
 Route::post('/employees', [EmployeeController::class, 'create']);
 Route::put('/employees/{id}', [EmployeeController::class, 'update']);
 Route::delete('/employees/{id}', [EmployeeController::class, 'delete']);
+});
+
+// Route::resource('/companies', CompanyController::class);
+
+
+
+Route::post('/login', [LoginController::class, 'login']);
+
 
 

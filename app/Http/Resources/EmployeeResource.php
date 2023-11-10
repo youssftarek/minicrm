@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +22,8 @@ class EmployeeResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'occupation' => $this->occupation,
-            'company' => new CompanyResource($this->company),
+            // 'company' => CompanyResource::collection($this->company),
+
         ];
     }
 }

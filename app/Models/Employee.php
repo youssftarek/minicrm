@@ -17,8 +17,8 @@ class Employee extends Model
     'phone',
     'occupation'];
 
-    public function company():BelongsTo
-    {
-        return $this->belongsTo(Company::class , 'company_id', 'id');
-    }
+    // public function company():BelongsTo
+    // {
+    //     return $this->belongsTo(Company::class , 'company_id', 'id');
+    // }
 }
