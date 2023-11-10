@@ -20,6 +20,7 @@ class CompanyResource extends JsonResource
             'email' => $this->email,
             'website' => $this->website,
             'revenue' => $this->revenue,
+            'employees' => EmployeeResource::collection($this->employees),
 
         ];
     }
