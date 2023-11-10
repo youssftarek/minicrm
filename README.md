@@ -5,10 +5,8 @@
     <li><h3> Run seeder using php artisan db:seed --class=UsersTableSeeder </h3></li>
     <li><h3> Require passport package for auth using composer require laravel/passport -w </h3></li>
     <li><h3> Install passport package for auth using php artisan passport:install </h3></li>
+    <li><h3> run server using php artisan storage:link to save logo in app\public </h3></li>
     <li><h3> Start your server using php artisan serve </h3></li>
-    <li><h3> Start your server using php artisan serve </h3></li>
-    
-    
 </ol>
 
 
