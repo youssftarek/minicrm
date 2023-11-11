@@ -28,6 +28,7 @@ class CompanyController extends Controller
         ]);
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('public/logos');
+            dd($request->file('logo'));
             $company->logo = basename($logoPath);
         }
 
@@ -39,16 +40,16 @@ class CompanyController extends Controller
     {
         $company = Company::findOrFail($company);
 
-        $company->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'logo' => $request->input('logo'),
-            'website' => $request->input('website'),
-            'revenue' => $request->input('revenue'),
-        ]);
+        $company->update(request()->all());
+
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('public/logos');
-            $company->logo = basename($logoPath);
+            $logo = $request->file('logo');
+
+
+        $logoPath = $logo->store('logos', 'public');
+
+
+        $company->update(['logo' => $logoPath]);
         }
         return new CompanyResource($company);
 

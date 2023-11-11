@@ -16,6 +16,8 @@ class EmployeeController extends Controller
         return EmployeeResource::collection($employees);
 
     }
+
+
     public function create(StoreEmployeeRequest $request)
     {
         $employee = Employee::create([
@@ -30,32 +32,30 @@ class EmployeeController extends Controller
         return new EmployeeResource($employee);
     }
 
+
     public function update(UpdateEmployeeRequest $request, $employee)
     {
         $employee = Employee::findOrFail($employee);
 
-        $employee->update([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'company_id' => $request->input('company_id'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'occupation' => $request->input('occupation'),
-        ]);
+        $employee->update(request()->all());
+
         return new EmployeeResource($employee);
 
     }
+
+
     public function show($employee)
     {
         $employee = Employee::findOrFail($employee);
         return new EmployeeResource($employee);
     }
 
-public function delete($employee)
-{
-    $employee = Employee::findOrFail($employee);
-    $employee->delete();
-    return response()->json(['message' => 'Employee deleted successfully'], 200);
-}
+
+    public function delete($employee)
+    {
+        $employee = Employee::findOrFail($employee);
+        $employee->delete();
+        return response()->json(['message' => 'Employee deleted successfully'], 200);
+    }
 
 }

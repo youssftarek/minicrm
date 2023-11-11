@@ -25,7 +25,7 @@ class UpdateEmployeeRequest extends FormRequest
             'first_name' => 'sometimes|string|max:255',
             'last_name' => 'sometimes|string|max:255',
             'company_id' => 'sometimes|integer|exists:companies,id',
-            'email' => 'sometimes|email|',
+            'email' => 'sometimes|email|unique:employees,email',
             'phone' => 'sometimes|string|max:255',
             'occupation' => 'sometimes|string|max:255',
         ];
