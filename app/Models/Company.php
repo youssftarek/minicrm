@@ -9,7 +9,7 @@ use App\Models\Employee;
 class Company extends Model
 {
     use HasFactory;
-    protected $fillable=['name','email','website','revenue'];
+    protected $fillable=['name','email','logo','website','revenue'];
 
     public function employees():HasMany
     {
