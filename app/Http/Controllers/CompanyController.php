@@ -19,21 +19,25 @@ class CompanyController extends Controller
 
     public function create(StoreCompanyRequest $request)
     {
+        if ($request->hasFile('logo')) {
+            $uploadedImage = $request->file('logo');
+            $originalName = $uploadedImage->getClientOriginalName();
+            $fileName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $uploadedImage->getClientOriginalExtension();
+            $newFileName = $fileName . '_' . time() . '.' . $extension;
+            $path = $uploadedImage->storeAs('logos', $newFileName, 'public');
+            $imageUrl = asset('storage/' . $path);
+        }
+
         $company = Company::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'logo' => $request->logo,
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'logo'    => $imageUrl,
             'website' => $request->website,
             'revenue' => $request->revenue,
         ]);
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('public/logos');
-            dd($request->file('logo'));
-            $company->logo = basename($logoPath);
-        }
 
         return new CompanyResource($company);
-
     }
 
     public function update(UpdateCompanyRequest $request, $company)
@@ -43,16 +47,17 @@ class CompanyController extends Controller
         $company->update(request()->all());
 
         if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-
-
-        $logoPath = $logo->store('logos', 'public');
-
-
-        $company->update(['logo' => $logoPath]);
+            $uploadedImage = $request->file('logo');
+            $originalName = $uploadedImage->getClientOriginalName();
+            $fileName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $uploadedImage->getClientOriginalExtension();
+            $newFileName = $fileName . '_' . time() . '.' . $extension;
+            $path = $uploadedImage->storeAs('logos', $newFileName, 'public');
+            $imageUrl = asset('storage/' . $path);
+            $company->update(['logo' => $imageUrl]);
         }
-        return new CompanyResource($company);
 
+        return new CompanyResource($company);
     }
     public function show($company)
     {
