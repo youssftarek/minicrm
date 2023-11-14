@@ -11,9 +11,10 @@ class CompanyController extends Controller
 {
     public function read()
     {
-
-        $companies = Company::paginate(10);
-        return CompanyResource::collection($companies);
+        $companies=Company::query();
+        $companies->orderBy('revenue', 'desc');
+        $paginated = $companies->paginate(10);
+        return CompanyResource::collection($paginated);
 
     }
 
